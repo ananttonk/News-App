@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">News Api</string>
+    <string name="app_name">News</string>
+    <string name="to_see_the_full_news_click_on_the_link">To see the full news click on the link</string>
+    <string name="image">image</string>
+    <string name="reload">Reload</string>
+    <string name="news">News</string>
 </resources>

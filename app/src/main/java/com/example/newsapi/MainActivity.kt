@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity(), Callback<NewsList> {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.revList.layoutManager = LinearLayoutManager(this)
         adapter = NewsRecyclerView(this)
         binding.revList.adapter = adapter
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), Callback<NewsList> {
                     adapter.update(it)
                 }
             }
-            Log.i("newaa", it.articles.toString())
+            Log.i("news ", it.articles.toString())
         }
     }
 
