@@ -18,13 +18,6 @@ class MainActivity : AppCompatActivity(), Callback<NewsList> {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.revList.layoutManager = LinearLayoutManager(this)
-        adapter = NewsRecyclerView(this)
-        binding.revList.adapter = adapter
-
-        binding.reloadButton.setOnClickListener {
-            this.recreate()
-        }
         if (Constants.isNetworkAvailable(this)) {
             Network.API.getNewsList().enqueue(this@MainActivity)
             binding.revList.visibility = View.VISIBLE
@@ -35,6 +28,12 @@ class MainActivity : AppCompatActivity(), Callback<NewsList> {
             binding.revList.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
             binding.reloadButton.visibility = View.VISIBLE
+        }
+        binding.revList.layoutManager = LinearLayoutManager(this)
+        adapter = NewsRecyclerView(this)
+        binding.revList.adapter = adapter
+        binding.reloadButton.setOnClickListener {
+            this.recreate()
         }
     }
 

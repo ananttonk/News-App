@@ -12,9 +12,10 @@ import com.example.newsapi.databinding.ItemListNewsBinding
 class NewsRecyclerView(private val context: Context) :
     RecyclerView.Adapter<NewsRecyclerView.ViewHolder>() {
     private var newList: NewsList? = null
+
     inner class ViewHolder(val binding: ItemListNewsBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        }
+        RecyclerView.ViewHolder(binding.root) {
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsRecyclerView.ViewHolder {
         val binding =
@@ -28,18 +29,25 @@ class NewsRecyclerView(private val context: Context) :
             .load(item?.urlToImage)
             .fitCenter()
             .into(holder.binding.image)
-        holder.binding.author.text = item?.author
-        holder.binding.date.text=item?.publishedAt
-        holder.binding.description.text = item?.description
-        holder.binding.title.text = item?.title
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, NewsDetails::class.java)
-            intent.putExtra("image", item?.urlToImage)
-            intent.putExtra("title", item?.title)
-            intent.putExtra("description", item?.description)
-            intent.putExtra("link", item?.url)
-            intent.putExtra("content",item?.content)
-            context.startActivity(intent)
+        item?.let { articles ->
+            val authorName = "Author Name: ${articles.author}"
+            val source = "Source: ${articles.source.name}"
+            val date =
+                "Date: ${articles.publishedAt.parseDate("yyyy-MM-dd'T'HH:mm:ss", "dd-MM-yyyy")}"
+            holder.binding.author.text = authorName
+            holder.binding.date.text = date
+            holder.binding.description.text = articles.description
+            holder.binding.title.text = articles.title
+            holder.binding.source.text = source
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, NewsDetails::class.java)
+                intent.putExtra("image", articles.urlToImage)
+                intent.putExtra("title", articles.title)
+                intent.putExtra("description", articles.description)
+                intent.putExtra("link", articles.url)
+                intent.putExtra("content", articles.content)
+                context.startActivity(intent)
+            }
         }
     }
 
